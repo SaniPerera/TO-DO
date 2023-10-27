@@ -2,6 +2,7 @@ plugins {
 	java
 	id("org.springframework.boot") version "2.7.17"
 	id("io.spring.dependency-management") version "1.0.15.RELEASE"
+	id ("org.openapi.generator" )version "6.6.0"
 }
 
 group = "com.example"
@@ -22,4 +23,10 @@ dependencies {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+}
+
+task buildApiDoctype( org.openapitools.generator.gradle.plugin.tasks.GenerateTask) {
+	generatorName("html2")
+	inputSpec ("$rootDir/src/main/resource/api-schema.yaml").toString()
+	outputDir  ("$buildFile/apidoc").toString()
 }
